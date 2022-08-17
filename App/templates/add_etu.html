@@ -1,0 +1,140 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/styel.css">
+<style>
+   .indicatur{
+			  position: absolute;
+			  top: 375px;
+			  right: 100px;
+			  width: 10px;
+			  height: 10px;
+			  background:#555;
+			  border-radius: 50%;
+	}
+          #form.valid .indicatur{
+            background: #0f0;
+            box-shadow: 0 0 5px #0f0,
+            0 0 10px #0f0,
+            0 0 20px #0f0,
+            0 0 40px #0f0;
+          }
+          #form.invalid .indicatur{
+            background: #f00;
+            box-shadow: 0 0 5px #f00,
+            0 0 10px #f00,
+            0 0 20px #f00,
+            0 0 40px #f00;
+          }
+</style>
+
+</head>
+{% extends 'principal.html' %}
+{% block title %}
+oi
+ {% endblock %}
+
+ {% block body %}
+ <div class="px-4 py-4">
+    <div class="card">
+        <div class="card-header">
+            <h4>Nouveau Etudiant</h4>
+        </div>
+        <div class="card-body">
+            <form id="form" class="row g-3" action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="col-md-4">
+                  <label for="" class="form-label">Nom:</label>
+                  <input type="text" class="form-control" Required name="nom" >
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Prénom:</label>
+                    <input type="text" class="form-control" Required name="prenom" >
+                  </div>
+                <div class="col-md-4">
+                  <label for="" class="form-label">Date Naissance</label>
+                  <input type="date" class="form-control" Required name="dateNai">
+                </div>
+                <div class="col-md-4">
+                  <label for="validationDefaultUsername" class="form-label">Lieu Naissance</label>
+                  <select class="form-select"  Required name="lieuNai_etu">
+                    {% for i in wil %}
+                    <option>{{ i }}</option>
+                   
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <label for="validationDefaultUsername" class="form-label">Sexe:</label>
+                  <select class="form-select"  Required name="sexe_etu"> 
+                    {% for i in x %}
+                    <option>{{ i }}</option>
+                   
+                    {% endfor %}
+                  </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="validationDefault03" class="form-label">Adresse:</label>
+                    <input type="text" class="form-control"  Required name="addres_etu">
+                  </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Photo:</label>
+                    <input type="file" class="form-control"  Required name="etu_photo">
+                  </div>
+                <div class="col-md-4">
+                  <label for="validationDefault04" class="form-label">Classe</label>
+                  <select class="form-select"  Required name="classe_etu">
+                    {% for i in cl %}                    
+                      <option>{{ i.class_nom }}</option>
+                      {% endfor %}
+                    </select>
+
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Année Scolaire</label>
+                      {% if an %}
+                      <input type="text" class="form-control"  Required name="annee_scolair" value="{{ an.ann_sco_nom }}" >
+                      {% endif %}
+                  </div>
+                  <div class="col-md-4">
+                    <label for="" class="form-label">Frais D'inscrption</label>
+                    <input type="text" class="form-control"  Required name="frai_ins">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="" class="form-label">Responsable</label>
+                    <input type="text" class="form-control" Required name="nom_agent" >
+                  </div>
+                  <div class="col-md-4">
+                    <div  id="input">
+                      <label for="" class="form-label">Contact</label>
+                      <input type="text" class="form-control" id="txt1" Required name="num_agent" placeholder="Saisir correct numero">
+                      <span class="indicatur"></span>
+                    </div>
+                    </div>
+                  
+                <div class="col-12">
+                  <button class="btn btn-success" type="submit">Valider Inscription</button>
+                </div>
+              </form>
+     
+        </div>
+    </div>
+</div>
+<script>
+  input.onkeyup = function() {
+      const form = document.getElementById('form');
+      const txt1 = document.getElementById('txt1').value;
+      var pattren = /^(\+2222|\+2223|\+2224|002222|002223|002224|2|3|4)[0-9]{7}$/;
+
+
+      if(txt1.match(pattren)){
+      form.classList.add('valid')
+      form.classList.remove('invalid')
+      }else{
+      form.classList.add('invalid')
+      form.classList.remove('valid')
+      }
+}
+</script>
+
+ {% endblock %}
+ </html>
